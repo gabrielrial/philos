@@ -6,7 +6,7 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:58:41 by grial             #+#    #+#             */
-/*   Updated: 2024/10/02 17:49:41 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/12 18:55:34 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*monitor(void *arg)
 
 	prog = (t_prog *)arg;
 	i = 0;
+	//usleep(1000);
+	//prog->stop = 0;
 	while (1)
 	{
 		usleep(500);

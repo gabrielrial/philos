@@ -6,11 +6,29 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:35:58 by grial             #+#    #+#             */
-/*   Updated: 2024/10/02 17:08:58 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/12 18:56:00 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/philo.h"
+
+void	is_ready(t_philos *philo)
+{
+	int	i;
+
+	i = 0;
+	while (1)
+	{
+		pthread_mutex_lock(&philo->prog->program_monitor);
+		if (philo->prog->stop == 0)
+		{
+			pthread_mutex_unlock(&philo->prog->program_monitor);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->prog->program_monitor);
+		usleep(100);
+	}
+}
 
 void	*routine(void *arg)
 {
@@ -24,6 +42,7 @@ void	*routine(void *arg)
 	time_to_sleep = philos->time_to_sleep;
 	time_to_eat = philos->time_to_eat;
 	time_to_think = philos->time_to_think;
+	//is_ready(philos);
 	if (philos->philos_id != 1)
 		usleep(600);
 	pthread_mutex_unlock(&philos->lock);

@@ -6,7 +6,7 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:39:26 by grial             #+#    #+#             */
-/*   Updated: 2025/02/07 14:50:24 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/12 18:59:15 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	create_philosophers(t_prog *prog, char **argv)
 		prog->philos[i].printing = &prog->print_status;
 		prog->philos[i].f_fork = NULL;
 		prog->philos[i].s_fork = NULL;
+		prog->philos[i].prog = NULL;
 		set_times(prog, &prog->philos[i], argv);
 		pthread_mutex_init(&prog->philos[i].lock, NULL);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:52:32 by grial             #+#    #+#             */
-/*   Updated: 2024/10/02 17:17:25 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/12 18:53:12 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philosopher
 	t_fork			*s_fork;
 	pthread_mutex_t	lock;
 	pthread_t		thread;
+	t_prog			*prog;
 }	t_philos;
 
 typedef struct s_program
