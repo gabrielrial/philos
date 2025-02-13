@@ -46,7 +46,7 @@ void		assign_forks(t_prog *prog);
 void		*monitor(void *arg);
 int			check_stop(t_philos *philos);
 int			check_meals(t_prog *prog);
-int			is_dead(t_philos *philos);
+int			is_dead(t_philos *philos, t_prog *prog);
 
 //	ROUTINE
 void		*routine(void *arg);

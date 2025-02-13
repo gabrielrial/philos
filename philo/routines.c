@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:35:58 by grial             #+#    #+#             */
-/*   Updated: 2025/02/12 18:56:00 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/13 21:30:44 by gabrielrial      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	is_ready(t_philos *philo)
 {
-	int	i;
-
-	i = 0;
 	while (1)
 	{
 		pthread_mutex_lock(&philo->prog->program_monitor);
@@ -42,9 +39,11 @@ void	*routine(void *arg)
 	time_to_sleep = philos->time_to_sleep;
 	time_to_eat = philos->time_to_eat;
 	time_to_think = philos->time_to_think;
-	//is_ready(philos);
-	if (philos->philos_id != 1)
-		usleep(600);
+	pthread_mutex_unlock(&philos->lock);
+	is_ready(philos);
+	pthread_mutex_lock(&philos->lock);
+	if (philos->philos_id % 2 == 0)
+		usleep(100);
 	pthread_mutex_unlock(&philos->lock);
 	while (1) 
 	{
@@ -69,7 +68,6 @@ int	take_forks(t_philos *philos)
 		return (0);
 	}
 	status(philos, 'f');
-	pthread_mutex_lock(&philos->lock);
 	if (!philos->s_fork)
 	{
 		usleep(philos->time_to_die * 1000);
@@ -77,7 +75,6 @@ int	take_forks(t_philos *philos)
 		pthread_mutex_unlock(&philos->lock);
 		return (0);
 	}
-	pthread_mutex_unlock(&philos->lock);
 	pthread_mutex_lock(&philos->s_fork->mutex);
 	if (!check_stop(philos))
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:45:34 by grial             #+#    #+#             */
-/*   Updated: 2024/10/02 17:09:35 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/13 21:28:29 by gabrielrial      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	status(t_philos *philos, char c)
 		return ;
 	}
 	pthread_mutex_lock(philos->printing);
-	pthread_mutex_lock(&philos->lock);
 	if (philos->alive == 1)
 	{
 		if (c == 'e')
@@ -33,7 +32,6 @@ void	status(t_philos *philos, char c)
 			print_status(philos, "is thinking\n");
 		else if (c == 'f')
 			print_status(philos, "has taken a fork\n");
-		pthread_mutex_unlock(&philos->lock);
 		pthread_mutex_unlock(philos->printing);
 	}
 }

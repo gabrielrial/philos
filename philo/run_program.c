@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_program.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:42:28 by grial             #+#    #+#             */
-/*   Updated: 2024/10/02 17:05:55 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/12 21:16:44 by gabrielrial      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ void	run_program(t_prog *philo)
 		pthread_join(philo->philos[i].thread, NULL);
 		i++;
 	}
+	if (philo->stop == 1)
+		pthread_mutex_unlock(&philo->print_status);
 	pthread_join(philo->monitor, NULL);
 }

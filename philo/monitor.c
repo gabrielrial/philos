@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:58:41 by grial             #+#    #+#             */
-/*   Updated: 2025/02/12 18:55:34 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/13 21:27:39 by gabrielrial      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	*monitor(void *arg)
 
 	prog = (t_prog *)arg;
 	i = 0;
-	//usleep(1000);
-	//prog->stop = 0;
+	usleep(1000);
+	prog->stop = 0;
 	while (1)
 	{
-		usleep(500);
+		usleep(200);
 		if (i == prog->n_philos)
 			i = 0;
-		if (is_dead(&prog->philos[i]))
+		if (is_dead(&prog->philos[i], prog))
 			break ;
 		if (prog->max_meals > 0 && check_meals(prog))
 			break ;
@@ -63,11 +63,15 @@ int	check_meals(t_prog *prog)
 	if (prog->n_philos == 1 && x == 1)
 		return (1);
 	else if (x == prog->n_philos - 1 && prog->n_philos > 1)
+	{
+		pthread_mutex_lock(&prog->print_status);
+		prog->stop = 0;
 		return (1);
+	}
 	return (0);
 }
 
-int	is_dead(t_philos *philos)
+int	is_dead(t_philos *philos, t_prog *prog)
 {
 	long long	time;
 
@@ -75,6 +79,7 @@ int	is_dead(t_philos *philos)
 	time = (time_current() - philos->time_last_meal);
 	if (time >= philos->time_to_die)
 	{
+		pthread_mutex_lock(&prog->print_status);
 		status(philos, 'd');
 		return (1);
 	}
