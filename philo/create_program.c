@@ -6,7 +6,7 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:39:26 by grial             #+#    #+#             */
-/*   Updated: 2025/02/12 18:59:15 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/13 13:30:50 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_prog	*create_program(int argc, char **argv)
 	prog->forks = NULL;
 	prog->philos = NULL;
 	prog->n_philos = ft_atoi(argv[1]);
-	prog->stop = 0;
+	prog->stop = 1;
 	prog->time_started = time_current();
 	pthread_mutex_init(&prog->print_status, NULL);
 	if (argc == 6)
@@ -53,7 +53,7 @@ int	create_philosophers(t_prog *prog, char **argv)
 		prog->philos[i].printing = &prog->print_status;
 		prog->philos[i].f_fork = NULL;
 		prog->philos[i].s_fork = NULL;
-		prog->philos[i].prog = NULL;
+		prog->philos[i].prog = prog;
 		set_times(prog, &prog->philos[i], argv);
 		pthread_mutex_init(&prog->philos[i].lock, NULL);
 		i++;

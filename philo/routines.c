@@ -6,7 +6,7 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:35:58 by grial             #+#    #+#             */
-/*   Updated: 2025/02/12 18:56:00 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/13 13:29:23 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*routine(void *arg)
 	time_to_sleep = philos->time_to_sleep;
 	time_to_eat = philos->time_to_eat;
 	time_to_think = philos->time_to_think;
-	//is_ready(philos);
+	is_ready(philos);
 	if (philos->philos_id != 1)
 		usleep(600);
 	pthread_mutex_unlock(&philos->lock);
