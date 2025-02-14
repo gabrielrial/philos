@@ -6,7 +6,7 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:35:58 by grial             #+#    #+#             */
-/*   Updated: 2025/02/14 12:43:40 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/14 17:27:18 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ int	eating(t_philos *philos, int time_to_eat)
 	ft_usleep(time_to_eat, philos);
 	pthread_mutex_unlock(&philos->f_fork->mutex);
 	pthread_mutex_unlock(&philos->s_fork->mutex);
+	pthread_mutex_lock(&philos->lock);
+	philos->meals++;
+	pthread_mutex_unlock(&philos->lock);
 	if (!check_stop(philos))
 		return (0);
 	return (1);
@@ -99,9 +102,6 @@ int	eating(t_philos *philos, int time_to_eat)
 int	sleeping(t_philos *philos, int time_to_sleep)
 {
 	status(philos, 's');
-	pthread_mutex_lock(&philos->lock);
-	philos->meals++;
-	pthread_mutex_unlock(&philos->lock);
 	if (!check_stop(philos))
 		return (0);
 	ft_usleep(time_to_sleep, philos);

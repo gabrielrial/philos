@@ -6,7 +6,7 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:45:34 by grial             #+#    #+#             */
-/*   Updated: 2025/02/14 11:21:03 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/14 17:56:31 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	status(t_philos *philos, char c)
 		print_status(philos, "died\n");
 		return ;
 	}
+	pthread_mutex_lock(&philos->lock);
 	pthread_mutex_lock(philos->printing);
 	if (philos->alive == 1)
 	{
@@ -30,8 +31,9 @@ void	status(t_philos *philos, char c)
 			print_status(philos, "is thinking\n");
 		else if (c == 'f')
 			print_status(philos, "has taken a fork\n");
-		pthread_mutex_unlock(philos->printing);
 	}
+	pthread_mutex_unlock(philos->printing);
+	pthread_mutex_unlock(&philos->lock);
 }
 
 void	print_status(t_philos *philos, char *status)
