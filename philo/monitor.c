@@ -6,7 +6,7 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:58:41 by grial             #+#    #+#             */
-/*   Updated: 2025/02/14 11:21:07 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/14 12:37:50 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	*monitor(void *arg)
 
 	prog = (t_prog *)arg;
 	i = 0;
-	usleep(10000);
+	usleep(1000);
 	prog->stop = 0;
 	while (1)
 	{
-		usleep(50);
+		usleep(100);
 		if (i == prog->n_philos)
 			i = 0;
 		if (is_dead(&prog->philos[i], prog))

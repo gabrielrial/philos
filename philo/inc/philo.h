@@ -71,5 +71,6 @@ void		run_program(t_prog *prog);
 //		UTILS
 int			ft_atoi(const char *nptr);
 void		set_times(t_prog *prog, t_philos *philos, char **argv);
+void		ft_usleep(long long time, t_philos *philo);
 
 #endif
