@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
+/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:58:41 by grial             #+#    #+#             */
-/*   Updated: 2025/02/13 21:27:39 by gabrielrial      ###   ########.fr       */
+/*   Updated: 2025/02/14 11:21:07 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	*monitor(void *arg)
 
 	prog = (t_prog *)arg;
 	i = 0;
-	usleep(1000);
+	usleep(10000);
 	prog->stop = 0;
 	while (1)
 	{
-		usleep(200);
+		usleep(50);
 		if (i == prog->n_philos)
 			i = 0;
 		if (is_dead(&prog->philos[i], prog))
@@ -79,6 +79,8 @@ int	is_dead(t_philos *philos, t_prog *prog)
 	time = (time_current() - philos->time_last_meal);
 	if (time >= philos->time_to_die)
 	{
+		philos->alive = 0;
+		pthread_mutex_unlock(&philos->lock);
 		pthread_mutex_lock(&prog->print_status);
 		status(philos, 'd');
 		return (1);

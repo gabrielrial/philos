@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
+/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:35:58 by grial             #+#    #+#             */
-/*   Updated: 2025/02/13 21:30:44 by gabrielrial      ###   ########.fr       */
+/*   Updated: 2025/02/14 11:14:48 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*routine(void *arg)
 	time_to_eat = philos->time_to_eat;
 	time_to_think = philos->time_to_think;
 	pthread_mutex_unlock(&philos->lock);
-	is_ready(philos);
+//	is_ready(philos);
 	pthread_mutex_lock(&philos->lock);
 	if (philos->philos_id % 2 == 0)
 		usleep(100);

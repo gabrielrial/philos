@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
+/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:45:34 by grial             #+#    #+#             */
-/*   Updated: 2025/02/13 21:28:29 by gabrielrial      ###   ########.fr       */
+/*   Updated: 2025/02/14 11:21:03 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	status(t_philos *philos, char c)
 	if (c == 'd')
 	{
 		print_status(philos, "died\n");
-		philos->alive = 0;
-		pthread_mutex_unlock(&philos->lock);
 		return ;
 	}
 	pthread_mutex_lock(philos->printing);

@@ -6,7 +6,7 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:55:19 by grial             #+#    #+#             */
-/*   Updated: 2025/02/12 17:17:05 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/14 11:03:40 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,15 @@ void	set_times(t_prog *prog, t_philos *philos, char **argv)
 	philos->time_to_die = ft_atoi(argv[2]);
 	philos->time_to_sleep = ft_atoi(argv[4]) * 1000;
 	philos->time_to_eat = ft_atoi(argv[3]) * 1000;
-	philos->time_to_think = 200;
+	if (prog->n_philos % 2 == 1 && 
+		((philos->time_to_sleep + philos->time_to_eat) * 2)
+		< (philos->time_to_die * 1000))
+	{
+		if (philos->time_to_sleep > philos->time_to_eat)
+			philos->time_to_think = philos->time_to_sleep;
+		else
+			philos->time_to_think = philos->time_to_eat;
+	}
+	else
+		philos->time_to_think = 100;
 }
