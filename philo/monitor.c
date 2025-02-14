@@ -6,7 +6,7 @@
 /*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:58:41 by grial             #+#    #+#             */
-/*   Updated: 2025/02/14 12:37:50 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/14 15:31:29 by grial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,19 @@ void	*monitor(void *arg)
 	prog = (t_prog *)arg;
 	i = 0;
 	usleep(1000);
+	pthread_mutex_lock(&prog->program_monitor);
 	prog->stop = 0;
+	pthread_mutex_unlock(&prog->program_monitor);
 	while (1)
 	{
-		usleep(100);
+		usleep(50);
 		if (i == prog->n_philos)
 			i = 0;
 		if (is_dead(&prog->philos[i], prog))
+		{
+			pthread_mutex_unlock(&prog->print_status);
 			break ;
+		}
 		if (prog->max_meals > 0 && check_meals(prog))
 			break ;
 		i++;
