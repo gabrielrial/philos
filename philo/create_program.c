@@ -6,7 +6,7 @@
 /*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:39:26 by grial             #+#    #+#             */
-/*   Updated: 2025/02/12 21:11:51 by gabrielrial      ###   ########.fr       */
+/*   Updated: 2025/02/15 20:05:16 by gabrielrial      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_prog	*create_program(int argc, char **argv)
 	prog->philos = NULL;
 	prog->n_philos = ft_atoi(argv[1]);
 	prog->stop = 1;
+	prog->done = 0;
 	prog->time_started = time_current();
 	pthread_mutex_init(&prog->print_status, NULL);
 	if (argc == 6)
@@ -49,6 +50,7 @@ int	create_philosophers(t_prog *prog, char **argv)
 	{
 		prog->philos[i].philos_id = i + 1;
 		prog->philos[i].meals = 0;
+		prog->philos[i].done = 0;
 		prog->philos[i].alive = 1;
 		prog->philos[i].printing = &prog->print_status;
 		prog->philos[i].f_fork = NULL;

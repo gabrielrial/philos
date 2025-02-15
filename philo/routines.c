@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:35:58 by grial             #+#    #+#             */
-/*   Updated: 2025/02/14 17:27:18 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/15 20:09:43 by gabrielrial      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ int	eating(t_philos *philos, int time_to_eat)
 	pthread_mutex_unlock(&philos->s_fork->mutex);
 	pthread_mutex_lock(&philos->lock);
 	philos->meals++;
+	if (!philos->done && philos->prog->done == philos->prog->n_philos - 1
+		&& philos->meals == philos->prog->max_meals)
+		philos->alive = 0;
 	pthread_mutex_unlock(&philos->lock);
 	if (!check_stop(philos))
 		return (0);

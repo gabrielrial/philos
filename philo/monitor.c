@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:58:41 by grial             #+#    #+#             */
-/*   Updated: 2025/02/14 17:59:50 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/15 20:12:43 by gabrielrial      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,25 @@ int	check_stop(t_philos *philos)
 
 int	check_meals(t_prog *prog)
 {
-	int	x;
 	int	i;
 
-	x = 0;
 	i = 0;
 	while (i < prog->n_philos)
 	{
 		pthread_mutex_lock(&prog->philos[i].lock);
-		if (prog->philos[i].meals >= prog->max_meals)
-			x++;
+		if (prog->philos[i].meals == prog->max_meals && !prog->philos[i].done)
+		{
+			prog->philos[i].done = 1;
+			pthread_mutex_lock(&prog->program_monitor);
+			prog->done++;
+			pthread_mutex_lock(&prog->program_monitor);
+			
+		}
 		pthread_mutex_unlock(&prog->philos[i].lock);
 		i++;
 	}
-	if ((prog->n_philos == 1 && x == 1) || (x == prog->n_philos))
-	{
-		prog->stop = 1;
+	if (prog->done == prog->n_philos)
 		return (1);
-	}
 	return (0);
 }
 

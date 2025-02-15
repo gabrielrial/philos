@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grial <grial@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: gabrielrial <gabrielrial@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:52:32 by grial             #+#    #+#             */
-/*   Updated: 2025/02/12 18:53:12 by grial            ###   ########.fr       */
+/*   Updated: 2025/02/15 20:03:19 by gabrielrial      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_philosopher
 	int				philos_id;
 	int				meals;
 	long long		time_started;
+	int				done;
 	long long		alive;
 	long long		time_last_meal;
 	int				time_to_die;
@@ -46,6 +47,7 @@ typedef struct s_program
 	int				n_philos;
 	int				max_meals;
 	int				stop;
+	int				done;
 	long long		time_started;
 	t_fork			*forks;
 	t_philos		*philos;
